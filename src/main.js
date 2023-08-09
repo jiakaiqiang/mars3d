@@ -5,7 +5,7 @@ import "mars3d-cesium/Build/Cesium/Widgets/widgets.css" //依赖的cesium库本�
 import "mars3d/dist/mars3d.css";
 import * as mars3d from "mars3d";
 import mars3dCesium from 'mars3d-cesium'
- 
+ import router from './rotuer/index'
 //可以绑定下vue原型链，可以全局使用
 Vue.prototype.mars3d = mars3d;
  
@@ -17,5 +17,6 @@ window.Cesium= mars3dCesium
 Vue.config.productionTip = false
  
 new Vue({
+  router,
   render: h => h(App),
 }).$mount('#app')

@@ -4,7 +4,8 @@
   </div>
 </template>
 <script>
-import Cesium from 'mars3d-cesium'
+import *as Cesium from 'mars3d-cesium'
+
 export default {
   mounted() {
     this.initMap()
@@ -13,7 +14,7 @@ export default {
     initMap() {
       var mapOptions = {
         scene: {
-          center: { lat: 39.904128, lng: 116.391643, alt: 1054, heading: 0, pitch: -39 },
+          center: {lat: 31.798703, lng: 117.207366, alt: 2033, heading: 31, pitch: -29},
           showSun: true,
           showMoon: true,
           showSkyBox: true,
@@ -33,46 +34,7 @@ export default {
             enableZoom: true
           }
         },
-        layers:[
-        {
-      name: "合肥教育点",
-      type: "wfs",
-      url: "//server.mars3d.cn/geoserver/mars/wfs",
-      layer: "mars:hfjy",
-      parameters: {
-        // 支持所有wfs的参数
-        maxFeatures: 500
-      },
-      minimumLevel: 13,
-      debuggerTileInfo: false,
-      symbol: {
-        type: "billboardP",
-        styleOptions: {
-          image: "img/marker/mark-red.png",
-        
-          scaleByDistance: true,
-          scaleByDistance_far: 20000,
-          scaleByDistance_farValue: 0.6,
-          scaleByDistance_near: 1000,
-          scaleByDistance_nearValue: 1,
-          clampToGround: true,
-          label: {
-            text: "{项目名称}",
-            font_size: 15,
-            color: "#ffffff",
-            outline: true,
-            outlineColor: "#000000",
-            pixelOffsetY: -30,
-            distanceDisplayCondition: true,
-            distanceDisplayCondition_far: 2000,
-            distanceDisplayCondition_near: 0
-          }
-        }
-      },
-      popup: "all",
-      show: true
-    }
-        ],
+
 
         control: {
           infoBox: true, //信息框
@@ -107,7 +69,7 @@ export default {
           sceneModePicker: true, // 二三维切换按钮
           navigationHelpButton: false, // 帮助按钮
           fullscreenButton: true, // 全屏按钮
-          contextmenu: { hasDefault: true } // 右键菜单
+          contextmenu: {hasDefault: true} // 右键菜单
         },
         terrain: {
           url: "//data.mars3d.cn/terrain",
@@ -135,8 +97,8 @@ export default {
           name: "天地图电子",
           type: "group",
           layers: [
-            { name: "底图", type: "tdt", layer: "vec_d" },
-            { name: "注记", type: "tdt", layer: "vec_z" }
+            {name: "底图", type: "tdt", layer: "vec_d"},
+            {name: "注记", type: "tdt", layer: "vec_z"}
           ]
         },
         rectangle: {
@@ -156,69 +118,68 @@ export default {
 
 
 // eslint-disable-next-line no-undef
-map.terrainProvider = mars3d.LayerUtil.createTerrainProvider({
-  type: 'arcgis',
-  url: 'https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer',
-})
+      map.terrainProvider = mars3d.LayerUtil.createTerrainProvider({
+        type: 'arcgis',
+        url: 'https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer',
+      })
 //相机配置
 // eslint-disable-next-line no-undef
-map.on(mars3d.EventType.cameraChanged, map_cameraChangedHandler, this)
-function map_cameraChangedHandler(event){
-  console.log(event,'-wefwf')
-}
+      map.on(mars3d.EventType.cameraChanged, map_cameraChangedHandler, this)
+
+      function map_cameraChangedHandler(event) {
+        console.log(event, '-wefwf')
+      }
+
 // eslint-disable-next-line no-undef
-map.on(mars3d.EventType.click,(event)=>{
-  console.log('测试点击事件',event)
-},this)
+      map.on(mars3d.EventType.click, (event) => {
+        console.log('测试点击事件', event)
+      }, this)
 
 
 //矢量数据图层
 // eslint-disable-next-line no-undef
-var wfsLayer = new mars3d.layer.ArcGisWfsLayer(  {
-      name: "合肥教育点",
-      type: "wfs",
-      url: "//server.mars3d.cn/geoserver/mars/wfs",
-      layer: "mars:hfjy",
-      parameters: {
-        // 支持所有wfs的参数
-        maxFeatures: 500
-      },
-      minimumLevel: 13,
-      debuggerTileInfo: false,
-      symbol: {
-        type: "billboardP",
-        styleOptions: {
-          image: "img/marker/mark-red.png",
-          verticalOrigin: this.Cesium.VerticalOrigin.BOTTOM,
-          scaleByDistance: true,
-          scaleByDistance_far: 20000,
-          scaleByDistance_farValue: 0.6,
-          scaleByDistance_near: 1000,
-          scaleByDistance_nearValue: 1,
-          clampToGround: true,
-          label: {
-            text: "{项目名称}",
-            font_size: 15,
-            color: "#ffffff",
-            outline: true,
-            outlineColor: "#000000",
-            pixelOffsetY: -30,
-            distanceDisplayCondition: true,
-            distanceDisplayCondition_far: 2000,
-            distanceDisplayCondition_near: 0
+      var wfsLayer = new mars3d.layer.ArcGisWfsLayer({
+            name: "合肥教育点",
+            type: "wfs",
+            url: "//server.mars3d.cn/geoserver/mars/wfs",
+            layer: "mars:hfjy",
+            parameters: {
+              // 支持所有wfs的参数
+              maxFeatures: 500
+            },
+            minimumLevel: 13,
+            debuggerTileInfo: false,
+            symbol: {
+              type: "billboardP",
+              styleOptions: {
+                image: "/img/marker/red-point.png",
+                verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
+                scaleByDistance: true,
+                scaleByDistance_far: 20000,
+                scaleByDistance_farValue: 0.6,
+                scaleByDistance_near: 1000,
+                scaleByDistance_nearValue: 1,
+                clampToGround: true,
+                label: {
+                  text: "{项目名称}",
+                  font_size: 15,
+                  color: "#ffffff",
+                  outline: true,
+                  outlineColor: "#000000",
+                  pixelOffsetY: -30,
+                  distanceDisplayCondition: true,
+                  distanceDisplayCondition_far: 2000,
+                  distanceDisplayCondition_near: 0
+                }
+              }
+            },
+            popup: "all",
+            show: true
           }
-        }
-      },
-      popup: "all",
-      show: true
-    }
-    )
-map.addLayer(wfsLayer)
+      )
+      map.addLayer(wfsLayer)
 
 //添加wfs 图层
-
-
-
 
 
       console.log(map, "map");

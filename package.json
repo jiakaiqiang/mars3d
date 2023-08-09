@@ -15,7 +15,8 @@
     "mars3d": "^3.5.18",
     "mars3d-cesium": "^1.107.2",
     "style-loader": "^3.3.3",
-    "vue": "^2.6.14"
+    "vue": "^2.6.14",
+    "vue-router": "^3.6.5"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
