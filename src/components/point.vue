@@ -12,6 +12,28 @@ export default defineComponent({
 
   },
   methods: {
+    //开启下雨
+    rain(){
+      this.rainEffect = new mars3d.effect.RainEffect({
+        speed: 10,
+      })
+      this.map.addEffect(this.rainEffect)
+    },
+    //开启下雪
+    snow(){
+      this.snow =  new mars3d.effect.SnowEffect({
+        speed: 10,
+      })
+      this.map.addEffect(this.snow)
+    },
+    //取消下雨
+    cacelRain(){
+      this.map.removeEffect(this.rainEffect)
+    },
+    //取消下雪
+    cacelSnow(){
+      this.map.removeEffect(this.snow)
+    },
     initMap() {
       let mapOptions = {
 
@@ -107,6 +129,8 @@ export default defineComponent({
 
       map.addLayer(geoJsonLayer)
       this.addDemoGraphic4()
+
+
       // 创建矢量数据图层
       this.map.graphicLayer.on(mars3d.EventType.drawCreated, (event)=>{
         console.log(event,'fewfwe')
@@ -187,6 +211,8 @@ export default defineComponent({
     this.map.addLayer(graphicLayer1)
   graphicLayer1.addGraphic(graphicModel)
 },
+ //下雨特效
+
 
 // 计算演示的SampledPositionProperty轨迹
  getSampledPositionProperty(points) {
@@ -257,12 +283,16 @@ export default defineComponent({
 <template>
   <div>
     <div id="mars3dContainer1" class="mars3d-container"></div>
-    <div style="background:pink;height:100px;width:100px;position: absolute;top:20px;right:20px">
+    <div style="background:pink;width:100px;position: absolute;top:20px;right:20px">
       <span>测试绘制</span>
       <button @click="drawPolygon">开始绘制</button>
       <button @click="handleDarw">绘制</button>
       <button @click="clearDarw">取消绘制</button>
       <button @click="addDemoGraphic2">绘制警车</button>
+      <button @click="rain">开启下雨</button>
+      <button @click="cacelRain">取消下雨</button>
+      <button @click="snow">开启下雪</button>
+      <button @click="cacelSnow">取消下雪</button>
     </div>
   </div>
 </template>
