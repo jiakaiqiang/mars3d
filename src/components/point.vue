@@ -61,8 +61,8 @@ export default defineComponent({
           }
         },
         control: {
-          infoBox: true, //信息框
-          selectionIndicator: true, //选择框
+          infoBox: false, //信息框 -  出现的摄像机
+          selectionIndicator: false, //选择框
           vrButton: false, //vr模式按钮
           compass: {
             rotation: true,
@@ -138,6 +138,15 @@ export default defineComponent({
 
 
     },
+
+    //绘制矢量数据的图层
+    drawMoutend(){
+
+
+    },
+
+
+
     drawPolygon(clampToGround) {
       this.map.graphicLayer.startDraw({
         type: "polygon",
@@ -161,8 +170,23 @@ export default defineComponent({
     handleDarw(){
       //创建图层加到map 中
       this.lary  =  new mars3d.layer.GraphicLayer({
-        data:JSON.parse(localStorage.getItem('key'))
+        data:{...JSON.parse(localStorage.getItem('key')),attr:{name:'jkq'}},
+        popup:[{field:'name',name:'title'}],
+        popupOptions:{
+          title:'cesjhif'
+        }
+
       })
+  //     //给对应图层添加数据
+  //     this.lary.bindPopup(function (event) {
+  //   const attr = event.graphic.attr || {}
+  //   attr["类型"] = event.graphic.type
+  //   attr["来源"] = "我是layer上绑定的Popup"
+  
+  //   attr["备注"] = "我支持鼠标交互"
+
+  //   return mars3d.Util.getTemplateHtml({ title: "矢量图层", template: "all", attr: attr })
+  // })
       this.map.addLayer(this.lary)
     },
     //绘制飞机
